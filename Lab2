@@ -5,8 +5,6 @@ WHERE f_rank='FULL' OR f_rank = 'INST';
 
 -- 2
 SELECT f_first, f_last
-
-
 FROM faculty
 WHERE f_rank LIKE 'FULL' OR f_rank LIKE 'INST';
 
@@ -35,5 +33,40 @@ FROM enrollment
 WHERE grade IS NULL;
 
 --8
- SELECT DISTINCT f_id
- FROM student; 
+SELECT DISTINCT f_id
+FROM student; 
+
+--9
+SELECT f_id
+FROM student
+GROUP BY f_id;
+
+--10
+SELECT DISTINCT loc_id
+FROM faculty;
+
+--11
+SELECT DISTINCT loc_id
+FROM course_section 
+
+--12
+SELECT c_sec_id
+FROM course_section
+WHERE c_sec_day NOT LIKE '%W%';
+
+--13
+SELECT c_sec_id
+FROM course_section
+WHERE c_sec_day NOT LIKE '%W%' OR c_sec_day NOT LIKE '%F%';
+
+--14
+SELECT course_id, term_id, AVG(max_enrl)
+FROM course_section
+WHERE course_id = '1' AND term_id = '4';
+
+--15
+SELECT COUNT(grade)
+FROM enrollment
+WHERE grade = 'B' AND grade IS NOT NULL;
+
+--16
