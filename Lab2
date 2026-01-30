@@ -1,0 +1,39 @@
+-- 1
+SELECT f_first, f_last
+FROM faculty
+WHERE f_rank='FULL' OR f_rank = 'INST';
+
+-- 2
+SELECT f_first, f_last
+
+
+FROM faculty
+WHERE f_rank LIKE 'FULL' OR f_rank LIKE 'INST';
+
+-- 3
+SELECT DISTINCT s_class
+FROM student;
+
+-- 4
+SELECT s_first, s_last, s_dob
+FROM student
+WHERE s_dob BETWEEN '1985-01-01' AND '1985-12-31';
+
+-- 5
+SELECT s_first, s_last, s_dob
+FROM student
+WHERE s_dob >= '1985-01-01' AND s_dob <= '1985-12-31';
+
+-- 6
+SELECT s_first, s_last, s_mi
+FROM student
+WHERE s_mi IS NOT NULL;
+
+--7
+SELECT s_id
+FROM enrollment
+WHERE grade IS NULL;
+
+--8
+ SELECT DISTINCT f_id
+ FROM student; 
