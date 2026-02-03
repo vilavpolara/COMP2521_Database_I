@@ -1,0 +1,10 @@
+--1
+SELECT course_id, COUNT(*)
+FROM course_section
+GROUP BY course_id
+HAVING COUNT(*) >=3;
+
+--2
+SELECT course_id, term_id, SUM(max_enrl)
+FROM course_section
+GROUP BY course_id, term_id;
