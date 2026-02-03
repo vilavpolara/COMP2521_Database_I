@@ -70,14 +70,15 @@ FROM enrollment
 WHERE grade = 'B' AND grade IS NOT NULL;
 
 --16.1
-SELECT f_id, COUNT(*) AS student_count
+SELECT f_id, COUNT(s_id) AS student_count
 FROM student
 GROUP BY f_id;
 
 --16.2
-SELECT f.f_id, COUNT(s.s_id) AS num_students
-FROM faculty AS f JOIN student AS s ON (f.f_id = s.f_id)
-GROUP BY f.f_id;
+SELECT faculty.f_id, COUNT(student.s_id) AS num_students
+FROM faculty, student
+WHERE student.f_id = faculty.f_id
+GROUP BY faculty.f_id;
 
 --17
 SELECT *

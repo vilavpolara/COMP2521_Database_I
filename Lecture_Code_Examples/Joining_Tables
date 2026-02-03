@@ -1,0 +1,73 @@
+/*
+Innter join - the information between both tables
+Methods:
+    t1, t2
+    t1 JOIN t2
+    t1 INNER JOIN t2
+*/
+
+-- Joining student and faculty, using traditional join
+SELECT faculty.f_id, COUNT(student.s_id) AS num_students
+FROM faculty, student
+WHERE student.f_id = faculty.f_id
+GROUP BY faculty.f_id;
+
+-- Using JOIN keyword - ON clause
+    -- ON clause allows for different column names
+SELECT faculty.f_id, COUNT(student.s_id) AS num_students
+FROM faculty JOIN student ON student.f_id = faculty.f_id
+GROUP BY faculty.f_id;
+
+-- If both coloumns have same name in tables
+SELECT faculty.f_id, COUNT(student.s_id) AS num_students
+FROM faculty JOIN student USING (f_id)
+GROUP BY faculty.f_id;
+
+-------------
+SELECT student.s_last, student.s_first, faculty.f_first, faculty.f_first
+FROM faculty, student
+WHERE student.f_id = faculty.f_id;
+
+
+/* 
+Retrieve all faculty advisors and count the number 
+of students they are advising.
+Display their faculty first and last name
+*/
+SELECT faculty.f_id, faculty.f_first, faculty.f_last, COUNT(student.s_id) AS num_students
+FROM faculty, student
+WHERE student.f_id = faculty.f_id
+GROUP BY faculty.f_id, faculty.f_first, faculty.f_last;
+
+/* 
+Retrieve the fauclty first and last name, term description
+and the course name of all course sections on the CS table
+*/
+SELECT f_first, f_last, term_Desc, course_name
+FROM faculty, term, course, course_section
+WHERE course_section.f_id = faculty.f_id
+AND course_section.term_id = term.term_id
+AND course_section.course_id = course.course_id;
+
+
+SELECT f_first, f_last, term_Desc, course_name
+FROM course_section JOIN term ON course_section.term_id = term.term_id
+                    JOIN course ON course_section.course_id = course.course_id
+                    JOIN faculty ON course_section.f_id = faculty.f_id;
+
+
+SELECT f_first, f_last, term_Desc, course_name
+FROM course_section JOIN term USING (term_id) 
+                    JOIN course USING (course_id) 
+                    JOIN faculty USING (f_id);
+
+
+/* Self Join
+Retrieve the  first and last name of all students who have the same advisor as Sarah Miller
+*/
+SELECT others.s_first AS First_Name, others.s_last AS Last_Name
+FROM student as sarah, student AS others
+WHERE sarah.s_first = 'Sarah' 
+    AND sarah.s_last = 'Miller' 
+    AND others.f_id = sarah.f_id 
+    AND others.s_id != sarah.s_id;
