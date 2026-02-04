@@ -4,7 +4,7 @@ SELECT f_first, f_last
 FROM faculty
 WHERE f_rank='FULL' OR f_rank = 'INST';
 
--- 2. Write query #1 in another way.
+-- 2. Write query #1 in another way.s
 SELECT f_first, f_last
 FROM faculty
 WHERE f_rank LIKE 'FULL' OR f_rank LIKE 'INST';
