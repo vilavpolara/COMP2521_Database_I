@@ -1,7 +1,6 @@
 -- 1. Retrieve the student's last names and the last name of their advisor. Make
 --    appropriate use of aliases.
-SELECT f_first AS First_Name , f_last AS Last_Name
-FROM faculty;
+SELECT s_last AS Student_LastName, f_last AS Advisor_LastName
 
 -- 2. Retrieve the advisor name along with the number of students they are 
 --    advising.
@@ -28,8 +27,6 @@ FROM course JOIN course_section ON course.course_id = course_section.course_id;
 SELECT course_section.course_id, course.course_name, course_section.max_enrl
 FROM course JOIN course_section USING (course_id);
 
---------------------------------------------------------------------------------
-
 -- 5. Modify query #4 to retrieve the total maximum enrollment per course.
 SELECT cs.course_id, c.course_name, SUM(cs.max_enrl)
 FROM course c JOIN course_section cs USING (course_id)
@@ -45,10 +42,13 @@ HAVING SUM(max_enrl) > 200;
 -- 7. Retrieve the location ID, building code, and room of locations that have
 --    been scheduled for a course section. Show the number of course sections
 --    taking plase in each of those locations. Sort the result with location ID.
-
+SELECT loc_id, bldg_code, room, COUNT(c_sec_id)
+FROM course_section JOIN location USING (loc_id)
+GROUP BY loc_id, bldg_code, room;
 
 -- 8. Retrieve the course name, term description, faculty last name and room of
 --    course sections that have been scheduled
+
 
 -- 9. Run query #8. Is the new coruse section included in your result. Show as a
 --    comment in SQL file
