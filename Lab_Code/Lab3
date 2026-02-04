@@ -1,0 +1,29 @@
+-- 1. Retrieve the student's last names and the last name of their advisor. Make appropriate use of aliases.
+SELECT f_first AS First_Name , f_last AS Last_Name
+FROM faculty;
+
+-- 2. Retrieve the advisor name along with the number of students they are advising.
+SELECT f_first, f_last, COUNT(s_id) AS Total_Students
+FROM student JOIN faculty USING (f_id)
+GROUP BY f_first, f_last;
+
+-- 3. Retrieve the last name of faculty members who are scheduled to teach course sections. Show the total 
+--    maximum enrollment per faculty member. 
+SELECT faculty.f_id, faculty.f_last, SUM(max_enrl)
+FROM faculty, course_section
+WHERE faculty.f_id = course_section.f_id
+GROUP BY f_id, f_last;
+
+-- 4. Retrieve the course ID and course name of all sections that are scheduled in the course section table and 
+--    their corresponding maximum enrollment.  
+--    a) Write the above query using the JOIN keyword with an ON clause.
+SELECT course_section.course_id, course.course_name, course_section.max_enrl
+FROM course JOIN course_section ON course.course_id = course_section.course_id;
+
+-- 4. Retrieve the course ID and course name of all sections that are scheduled in the course section table and 
+--    their corresponding maximum enrollment.  
+--    b) Write the above query using the JOIN keyword with the USING clause.
+SELECT course_section.course_id, course.course_name, course_section.max_enrl
+FROM course JOIN course_section USING (course_id);
+
+-- 
